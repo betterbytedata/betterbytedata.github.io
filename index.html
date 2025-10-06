@@ -1,15 +1,273 @@
 <!doctype html>
-<html>
-<head><meta charset="utf-8"><title>My Site</title></head>
-<body>
-  <nav>
-    <a href="/index.html">Home</a> |
-    <a href="/about.html">About</a> |
-    <a href="/blog/">Blog</a> |
-    <a href="/contact/">Contact</a>
-  </nav>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My GitHub Pages Site</title>
+  <meta name="description" content="A simple, responsive static site served with GitHub Pages." />
 
-  <h1>Welcome</h1>
-  <p>Pick a page from the nav.</p>
+  <style>
+    :root{
+      --bg: #0f1724;
+      --card: #0b1220;
+      --muted: #98a0b3;
+      --accent: #6ee7b7;
+      --glass: rgba(255,255,255,0.03);
+      --radius: 12px;
+      --maxw: 1000px;
+      --gap: 18px;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    /* Reset-ish */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: linear-gradient(180deg, #081021 0%, #071322 60%);
+      color: #e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:24px;
+      display:flex;
+      justify-content:center;
+      font-size:16px;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:var(--maxw);
+    }
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:var(--gap);
+      margin-bottom:22px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      text-decoration:none;
+      color:inherit;
+    }
+    .logo{
+      width:44px;
+      height:44px;
+      background:linear-gradient(135deg,var(--accent),#4dd0e1);
+      border-radius:10px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.45), inset 0 -6px 18px rgba(255,255,255,0.02);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      color:#042226;
+      font-size:18px;
+      flex:0 0 44px;
+    }
+    .brand h1{
+      margin:0;
+      font-size:18px;
+      letter-spacing:0.2px;
+    }
+    .brand p{margin:0;color:var(--muted);font-size:13px}
+
+    nav[aria-label="Main"]{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    nav a{
+      color:var(--muted);
+      text-decoration:none;
+      padding:8px 10px;
+      border-radius:8px;
+      font-weight:600;
+      font-size:14px;
+    }
+    nav a:hover{color:var(--accent); background:var(--glass)}
+
+    /* Hero card */
+    .hero{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: var(--radius);
+      padding:28px;
+      box-shadow: 0 6px 30px rgba(2,6,23,0.6);
+      display:flex;
+      gap:20px;
+      align-items:center;
+      margin-bottom:20px;
+    }
+    .hero-content{flex:1}
+    .eyebrow{display:inline-block;padding:6px 10px;background:rgba(255,255,255,0.03);border-radius:999px;color:var(--muted);font-size:13px;margin-bottom:12px}
+    .hero h2{margin:0 0 8px 0;font-size:28px}
+    .hero p{margin:0;color:var(--muted)}
+    .hero-actions{display:flex;gap:10px;margin-top:16px}
+    .btn{
+      background:linear-gradient(90deg,var(--accent),#4dd0e1);
+      color:#042226;
+      padding:10px 14px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+      box-shadow: 0 6px 18px rgba(57,155,138,0.12);
+    }
+    .btn.secondary{
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.03);
+      font-weight:600;
+    }
+
+    /* grid of features */
+    .grid{
+      display:grid;
+      gap:16px;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      margin-bottom:18px;
+    }
+    .card{
+      background:var(--card);
+      border-radius:12px;
+      padding:16px;
+      box-shadow: 0 6px 18px rgba(2,6,23,0.5);
+    }
+    .card h3{margin:0 0 8px 0;font-size:16px}
+    .card p{margin:0;color:var(--muted);font-size:14px}
+
+    footer{
+      margin-top:14px;color:var(--muted);font-size:14px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+    }
+
+    /* small screens */
+    @media (max-width:640px){
+      .hero{flex-direction:column;align-items:flex-start}
+      header{flex-direction:column;align-items:flex-start;gap:12px}
+      .brand h1{font-size:16px}
+    }
+
+    /* skip link */
+    .skip{
+      position: absolute;
+      left:-999px;
+      top:auto;
+      width:1px;
+      height:1px;
+      overflow:hidden;
+    }
+    .skip:focus{
+      left:10px;
+      top:10px;
+      width:auto;
+      height:auto;
+      background:#fff;
+      color:#000;
+      padding:8px 12px;
+      border-radius:6px;
+      z-index:9999;
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+
+  <div class="wrap" role="document">
+    <header>
+      <a class="brand" href="/index.html" aria-label="Homepage">
+        <div class="logo">GH</div>
+        <div>
+          <h1>My GitHub Pages</h1>
+          <p>static site • fast • free</p>
+        </div>
+      </a>
+
+      <nav aria-label="Main">
+        <a href="/about.html">About</a>
+        <a href="/blog/">Blog</a>
+        <a href="/contact/">Contact</a>
+        <a href="/resume.html" aria-hidden="true" style="opacity:0.6;pointer-events:none">Resume (example)</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-content">
+          <div class="eyebrow">Welcome</div>
+          <h2 id="hero-title">A clean starting template for GitHub Pages</h2>
+          <p>
+            This example shows multiple pages, folders, and assets served from a user site
+            (e.g. <code>https://<strong>username</strong>.github.io/</code>).
+            Edit, add files, then push to your repo — GitHub Pages serves them automatically.
+          </p>
+
+          <div class="hero-actions" role="toolbar" aria-label="Primary actions">
+            <a class="btn" href="/about.html">About this site</a>
+            <a class="btn secondary" href="/blog/">See blog</a>
+          </div>
+        </div>
+
+        <!-- quick preview box -->
+        <div style="min-width:220px;max-width:320px;">
+          <div style="background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:10px;padding:12px;">
+            <strong style="display:block;margin-bottom:8px;color:var(--muted)">Quick links</strong>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <a href="/about.html" style="color:var(--accent);text-decoration:none">→ About</a>
+              <a href="/blog/post1.html" style="color:var(--muted);text-decoration:none">→ Sample post</a>
+              <a href="/contact/" style="color:var(--muted);text-decoration:none">→ Contact</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid" aria-label="Features">
+        <article class="card" aria-labelledby="f1">
+          <h3 id="f1">Multiple pages & folders</h3>
+          <p>Place any HTML file at repo root or inside folders. Examples: <code>/about.html</code> and <code>/blog/post1.html</code>.</p>
+        </article>
+
+        <article class="card" aria-labelledby="f2">
+          <h3 id="f2">Static assets</h3>
+          <p>Put CSS, JS, and images in <code>/css</code>, <code>/js</code>, and <code>/images</code> and reference them in your pages.</p>
+        </article>
+
+        <article class="card" aria-labelledby="f3">
+          <h3 id="f3">Clean URLs</h3>
+          <p>Create <code>/folder/index.html</code> to serve content at <code>/folder/</code> — friendly and tidy URLs.</p>
+        </article>
+
+        <article class="card" aria-labelledby="f4">
+          <h3 id="f4">Custom domain</h3>
+          <p>Later you can add a <code>CNAME</code> file or configure a custom domain in GitHub Pages settings.</p>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <div>Made with ❤️ — <a href="/about.html" style="color:var(--muted)">About</a></div>
+      <div style="color:var(--muted)">Visit <code>/about.html</code> or <code>/blog/</code> to explore</div>
+    </footer>
+  </div>
+
+  <script>
+    // Tiny progressive enhancement: focus outline for keyboard users
+    (function(){
+      const body = document.body;
+      function handleFirstTab(e){
+        if(e.key === 'Tab'){
+          body.classList.add('user-is-tabbing');
+          window.removeEventListener('keydown', handleFirstTab);
+        }
+      }
+      window.addEventListener('keydown', handleFirstTab);
+    })();
+  </script>
 </body>
 </html>
